@@ -24,8 +24,8 @@ phases:
      
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com
-      - REPOSITORY_URI=456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr
-      - docker pull 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest
+      - docker build -t sample-ecr .
+      - docker tag sample-ecr:latest 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest
       
 
   build:
@@ -34,7 +34,7 @@ phases:
       - echo Building the Docker image...          
       - docker build --cache-from 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest -t sample-ecr:latest .
       - docker tag sample-ecr:latest 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest 
-
+      
   post_build:
     commands:
       - echo Build completed on `date`
