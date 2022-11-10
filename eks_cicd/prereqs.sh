@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 # This script will install EKS prerequisites on Amazon Linux or Amazon Linux 2
 # * kubectl
 # * aws-iam-authenticator
