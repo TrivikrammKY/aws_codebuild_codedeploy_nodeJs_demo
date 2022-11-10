@@ -19,7 +19,7 @@ phases:
     commands:
       - aws sts get-caller-identity
       - echo Logging in to Amazon EKS...
-      - aws eks update-kubeconfig --name k8scluster --region ap-northeast-1 --role-arn "arn:aws:sts::456195714649:assumed-role/eksec2instance/i-0ee0476bae8872fd0"
+      - aws eks update-kubeconfig --name K8scluster --region ap-northeast-1 --role-arn "arn:aws:sts::456195714649:assumed-role/eksec2instance/i-0ee0476bae8872fd0"
       - echo check config 
       - kubectl config view --minify
       - echo check kubectl access
