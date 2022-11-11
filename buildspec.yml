@@ -44,6 +44,7 @@ phases:
       - echo Push the latest image to cluster
       - rm -rf .kube/config
       - aws sts get-caller-identity
+      - aws configure -AKIAWUN3CFZMUN7O6ADU
       - aws eks update-kubeconfig --name ekscluster --region ap-northeast-1  
       - kubectl apply -f eks_cicd/deployment.yaml
 #      - kubectl rollout restart -f eks_cicd/deployment.yaml
