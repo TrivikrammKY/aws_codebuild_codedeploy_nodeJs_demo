@@ -43,5 +43,6 @@ phases:
       - docker pull 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest
       - echo Push the latest image to cluster
       - aws eks update-kubeconfig --name ekscluster --region ap-northeast-1
+      - kubectl get pods --kubeconfig ./.kube/config
       - kubectl apply -f eks_cicd/deployment.yaml
 #      - kubectl rollout restart -f eks_cicd/deployment.yaml
