@@ -47,4 +47,5 @@ phases:
       - aws configure set aws_access_key_id "AKIAWUN3CFZMUN7O6ADU" --profile default && aws configure set aws_secret_access_key "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" --profile default && aws configure set region "ap-northeast-1" --profile default && aws configure set output "" --profile default
       - aws eks update-kubeconfig --name ekscluster --region ap-northeast-1  
       - kubectl apply -f eks_cicd/deployment.yaml
+      - kubectl apply -f service.yaml
 #      - kubectl rollout restart -f eks_cicd/deployment.yaml
