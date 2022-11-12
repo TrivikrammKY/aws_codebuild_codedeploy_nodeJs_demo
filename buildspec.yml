@@ -23,28 +23,27 @@ phases:
       - echo check kubectl access
      
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com
-      - docker build -t sample-ecr .
-      - docker tag sample-ecr:latest 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest
-      
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com
+      - docker build -t samplerepo .
+      - docker tag samplerepo:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest      
 
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build --cache-from 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest -t sample-ecr:latest .
-      - docker tag sample-ecr:latest 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest 
+      - docker build --cache-from 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest -t samplerepo:latest .
+      - docker tag samplerepo:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest 
       
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest
-      - docker pull 456195714649.dkr.ecr.ap-northeast-1.amazonaws.com/sample-ecr:latest
+      - docker push 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
+      - docker pull 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
       - echo Push the latest image to cluster
       - rm -rf .kube/config
       - aws sts get-caller-identity
-      - aws configure set aws_access_key_id "AKIAWUN3CFZMUN7O6ADU" --profile default && aws configure set aws_secret_access_key "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" --profile default && aws configure set region "ap-northeast-1" --profile default && aws configure set output "" --profile default
+      - aws configure set aws_access_key_id "AKIAQLCAGEI6BFJ7YT7U" --profile default && aws configure set aws_secret_access_key "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" --profile default && aws configure set region "ap-northeast-1" --profile default && aws configure set output "" --profile default
       - aws eks update-kubeconfig --name k8scluster --region ap-northeast-1  
       - kubectl apply -f eks_cicd/deployment.yaml
       - kubectl apply -f eks_cicd/service.yaml
