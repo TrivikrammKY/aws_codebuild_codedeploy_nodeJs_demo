@@ -18,33 +18,33 @@ phases:
     commands:
       - aws sts get-caller-identity
       - echo Logging in to Amazon EKS...
-      - aws eks update-kubeconfig --name k8scluster --region ap-northeast-1 
+      - aws eks update-kubeconfig --name k8scluster --region ap-south-1 
       - kubectl config view --minify
       - echo check kubectl access
      
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin  482157677131.dkr.ecr.ap-south-1.amazonaws.com
       - docker build -t samplerepo .
-      - docker tag samplerepo:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest      
+      - docker tag samplerepo:latest 482157677131.dkr.ecr.ap-south-1.amazonaws.com/samplerepo:latest      
 
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build --cache-from 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest -t samplerepo:latest .
-      - docker tag samplerepo:latest 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest 
+      - docker build --cache-from 482157677131.dkr.ecr.ap-south-1.amazonaws.com/samplerepo:latest -t samplerepo:latest .
+      - docker tag samplerepo:latest 482157677131.dkr.ecr.ap-south-1.amazonaws.com/samplerepo:latest
       
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
-      - docker pull 023756939836.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
+      - docker push 482157677131.dkr.ecr.ap-south-1.amazonaws.com/samplerepo:latest
+      - docker pull 482157677131.dkr.ecr.ap-south-1.amazonaws.com/samplerepo:latest
       - echo Push the latest image to cluster
       - rm -rf .kube/config
       - aws sts get-caller-identity
-      - aws configure set aws_access_key_id "AKIAQLCAGEI6BFJ7YT7U" --profile default && aws configure set aws_secret_access_key "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" --profile default && aws configure set region "ap-northeast-1" --profile default && aws configure set output "" --profile default
-      - aws eks update-kubeconfig --name k8scluster --region ap-northeast-1  
+      - aws configure set aws_access_key_id "AKIAXAQWWJJF6CX4OEGH" --profile default && aws configure set aws_secret_access_key "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" --profile default && aws configure set region "ap-south-1" --profile default && aws configure set output "" --profile default
+      - aws eks update-kubeconfig --name k8scluster --region ap-south-1  
       - kubectl apply -f eks_cicd/deployment.yaml
       - kubectl apply -f eks_cicd/service.yaml
 #      - kubectl rollout restart -f eks_cicd/deployment.yaml
