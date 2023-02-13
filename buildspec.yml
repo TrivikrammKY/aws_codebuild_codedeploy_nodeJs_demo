@@ -23,23 +23,23 @@ phases:
       - echo check kubectl access
      
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin  124778430103.dkr.ecr.ap-northeast-1.amazonaws.com
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin  630303339910.dkr.ecr.ap-northeast-1.amazonaws.com
       - docker build -t samplerepo .
-      - docker tag samplerepo:latest 124778430103.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest      
+      - docker tag samplerepo:latest 630303339910.dkr.ecr.ap-northeast-1.amazonaws.com/repo1:latest      
 
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build --cache-from 124778430103.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo .
-      - docker tag samplerepo:latest 124778430103.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
+      - docker build --cache-from 630303339910.dkr.ecr.ap-northeast-1.amazonaws.com/repo1 .
+      - docker tag samplerepo:latest 630303339910.dkr.ecr.ap-northeast-1.amazonaws.com/repo1:latest
       
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 124778430103.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
-      - docker pull 124778430103.dkr.ecr.ap-northeast-1.amazonaws.com/samplerepo:latest
+      - docker push 630303339910.dkr.ecr.ap-northeast-1.amazonaws.com/repo1:latest
+      - docker pull 630303339910.dkr.ecr.ap-northeast-1.amazonaws.com/repo1:latest
       - echo Push the latest image to cluster
       - rm -rf .kube/config
       - aws sts get-caller-identity
